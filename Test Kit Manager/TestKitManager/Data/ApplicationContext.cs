@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using TestKitManager.Pages.Machines;
 
 namespace TestKitManager.Data
 {
@@ -11,11 +10,19 @@ namespace TestKitManager.Data
         public ApplicationContext()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
+            var path = Path.Join(Environment.GetFolderPath(folder), "Test Kit Manager");
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             DbPath = System.IO.Path.Join(path, "database.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={DbPath}");
+
+        public DbSet<Machine> Machines { get; set; }
     }
 }
