@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TestKitManager.Pages.Machines;
+using TestKitManager.Pages.Services;
 
 namespace TestKitManager.Data
 {
@@ -24,5 +25,7 @@ namespace TestKitManager.Data
             => options.UseSqlite($"Data Source={DbPath}");
 
         public DbSet<Machine> Machines { get; set; }
+
+        public DbSet<Service> Services { get; set; }
     }
 }
