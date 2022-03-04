@@ -1,9 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using TestKitManager.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<ApplicationContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<ApplicationContext>();
+    context.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
