@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestKitManager.Pages.Services;
 
 namespace TestKitManager.Pages.Machines
 {
@@ -12,6 +13,10 @@ namespace TestKitManager.Pages.Machines
         public MachineType Type { get; set; }
 
         public string? IpAddresses { get; set; }
+
+#nullable disable
+        public virtual List<Service> Services { get; set; }
+#nullable restore
 
         public enum MachineType
         {
