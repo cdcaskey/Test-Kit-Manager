@@ -19,7 +19,7 @@ namespace TestKitManager.Pages.Services
         [BindProperty]
         public Service Service { get; set; }
 
-        public SelectList Locations => new SelectList(_context.Machines.OrderBy(x => x.Name), "Id", "Name");
+        public SelectList Locations => new(_context.Machines.OrderBy(x => x.Name), "Id", "Name");
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

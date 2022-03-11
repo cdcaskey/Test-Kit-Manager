@@ -23,7 +23,7 @@ namespace TestKitManager.Pages.Services
         [BindProperty]
         public Service Service { get; set; }
 
-        public SelectList Locations => new SelectList(_context.Machines.OrderBy(x => x.Name), "Id", "Name");
+        public SelectList Locations => new(_context.Machines.OrderBy(x => x.Name), "Id", "Name");
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
