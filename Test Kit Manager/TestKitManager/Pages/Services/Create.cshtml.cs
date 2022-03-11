@@ -23,14 +23,30 @@ namespace TestKitManager.Pages.Services
         [BindProperty]
         public Service Service { get; set; }
 
+        [BindProperty]
+        public IFormFile Upload { get; set; }
+
         public SelectList Locations => new(_context.Machines.OrderBy(x => x.Name), "Id", "Name");
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            if (Upload?.Length > Service.MaxConfigFileSize)
+            {
+                ModelState.AddModelError(nameof(Upload), "Config Files are limited to 150KB");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            if (Upload != null)
+            {
+                Service.ConfigFileName = Upload.FileName;
+
+                using var reader = new StreamReader(Upload.OpenReadStream());
+                Service.ConfigFileContent = reader.ReadToEnd();
             }
 
             _context.Services.Add(Service);

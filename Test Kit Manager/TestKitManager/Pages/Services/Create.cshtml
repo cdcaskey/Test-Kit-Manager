@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Service.Name" class="control-label"></label>
@@ -28,6 +28,13 @@
                 <select asp-for="Service.LocationId" class ="form-control" asp-items="Model.Locations"></select>
             </div>
             <div class="form-group">
+                <label for="@nameof(Model.Upload)" class="control-label">Config File</label>
+                <div class="input-group">
+                    <input type="file" asp-for="Upload" class="form-control" />
+                </div>
+                <span asp-validation-for="Upload" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -40,4 +47,17 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $('#Upload').change(function() {
+            if ($(this).val) {
+                $(this).after('<button class="btn btn-outline-danger" type="button" id="CancelUpload">Cancel</button>');
+
+                $('#CancelUpload').click(function() {
+                    $('#Upload').val('');
+                    $(this).remove();
+                });
+            }
+        });
+    </script>
 }
