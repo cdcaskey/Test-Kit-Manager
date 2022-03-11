@@ -1,6 +1,8 @@
 ﻿#nullable disable
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 using TestKitManager.Data;
 
 namespace TestKitManager.Pages.Services
@@ -14,7 +16,19 @@ namespace TestKitManager.Pages.Services
             _context = context;
         }
 
-        public IList<Service> Service { get;set; }
+        public IList<Service> Service { get; set; }
+
+        public ActionResult OnPostDownloadFile(int id)
+        {
+            var service = _context.Services.FirstOrDefault(s => s.Id == id);
+
+            if (service == null || !service.HasConfig)
+            {
+                return NotFound();
+            }    
+
+            return File(Encoding.ASCII.GetBytes(service.ConfigFileContent!), "application/octet-stream", service.ConfigFileName);
+        }
 
         public async Task OnGetAsync()
         {
