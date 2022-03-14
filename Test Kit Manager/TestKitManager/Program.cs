@@ -5,6 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<ApplicationContext>();
 
+#if DEBUG
+builder.Services.AddSingleton<DatabaseSeeder>();
+#endif
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 

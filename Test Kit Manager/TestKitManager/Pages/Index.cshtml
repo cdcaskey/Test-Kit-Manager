@@ -2,9 +2,17 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    bool debug = (bool?)ViewData["Debug"] ?? false;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (debug)
+    {
+        <form method="post">
+            <button type="submit" asp-page-handler="SeedDatabase" class="btn btn-lg btn-danger">(Re)Seed Database</button>   
+            <button type="submit" asp-page-handler="ClearDatabase" class="btn btn-lg btn-danger">Clear Database</button>   
+        </form>
+    }
 </div>
