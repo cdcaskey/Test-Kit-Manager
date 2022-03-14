@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TestKitManager.Pages.Machines;
+using TestKitManager.Pages.Observations;
 
 namespace TestKitManager.Pages.Services
 {
@@ -23,6 +24,8 @@ namespace TestKitManager.Pages.Services
 
 #nullable disable
         public virtual Machine Location { get; set; }
+
+        public virtual List<Observation> Observations { get; set; }
 #nullable restore
 
         public bool HasConfig => !string.IsNullOrEmpty(ConfigFileName) && !string.IsNullOrEmpty(ConfigFileContent);

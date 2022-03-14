@@ -27,5 +27,7 @@ namespace TestKitManager.Data
         public DbSet<Machine> Machines { get; set; }
 
         public DbSet<Service> Services { get; set; }
+
+        public DbSet<TestKitManager.Pages.Observations.Observation> Observations { get; set; }
     }
 }

@@ -1,0 +1,99 @@
+﻿@page
+@model TestKitManager.Pages.Observations.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Observation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Observation.Id" />
+            <div class="form-group">
+                <label asp-for="Observation.Created" class="control-label"></label>
+                <input asp-for="Observation.Created" class="form-control" />
+                <span asp-validation-for="Observation.Created" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observation.LastUpdated" class="control-label"></label>
+                <input asp-for="Observation.LastUpdated" class="form-control" />
+                <span asp-validation-for="Observation.LastUpdated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observation.Type" class="control-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white text-danger bi bi-bug-fill" id="TypeIcon"></span>
+                    <select asp-for="Observation.Type" asp-items="Html.GetEnumSelectList<ObservationType>()" class="form-select"></select>
+                    <select asp-for="Observation.Priority" asp-items="Html.GetEnumSelectList<ObservationPriority>()" class="form-select"></select>
+                </div>
+                <span asp-validation-for="Observation.Type" class="text-danger"></span>
+                <span asp-validation-for="Observation.Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observation.Title" class="control-label"></label>
+                <input asp-for="Observation.Title" class="form-control" />
+                <span asp-validation-for="Observation.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observation.Content" class="control-label"></label>
+                <input asp-for="Observation.Content" class="form-control" />
+                <span asp-validation-for="Observation.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Observation.ThirdPartyIssue" /> @Html.DisplayNameFor(model => model.Observation.ThirdPartyIssue)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        const iconMappings = [
+            "bi bi-bug-fill",
+            "bi bi-pc-display-horizontal",
+            "bi bi-globe2",
+            "bi bi-file-earmark-check-fill",
+            "bi bi-sticky-fill"
+        ];
+
+        const colourMappings = [
+            "text-primary",
+            "text-warning",
+            "text-danger"
+        ]
+
+        $(function() {
+            function updateBug () {
+                let icon = $('#TypeIcon');
+                
+                icon.removeClass();
+                
+                var type = $('#Observation_Type').val();
+                var priority = $('#Observation_Priority').val();
+
+                icon.addClass('input-group-text bg-white ' + iconMappings[type] + ' ' + colourMappings[priority]);
+            }
+
+            updateBug();
+
+            $('#Observation_Type').on('change', function() { updateBug(); });
+            $('#Observation_Priority').on('change', function() { updateBug(); });
+        });
+    </script>
+}

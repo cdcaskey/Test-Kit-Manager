@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestKitManager.Pages.Observations;
 using TestKitManager.Pages.Services;
 
 namespace TestKitManager.Pages.Machines
@@ -16,6 +17,8 @@ namespace TestKitManager.Pages.Machines
 
 #nullable disable
         public virtual List<Service> Services { get; set; }
+
+        public virtual List<Observation> Observations { get; set; }
 #nullable restore
 
         public enum MachineType
