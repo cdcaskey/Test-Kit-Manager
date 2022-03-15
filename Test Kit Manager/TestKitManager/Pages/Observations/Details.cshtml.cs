@@ -24,7 +24,11 @@ namespace TestKitManager.Pages.Observations
                 return NotFound();
             }
 
-            Observation = await _context.Observations.FirstOrDefaultAsync(m => m.Id == id);
+            Observation = await _context.Observations
+                                        .Include(o => o.Machines)
+                                        .Include(o => o.Services)
+                                        .ThenInclude(s => s.Location)
+                                        .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Observation == null)
             {

@@ -53,6 +53,28 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Observation.ThirdPartyIssue)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Observation.Machines)
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
+                @foreach(var machine in Model.Observation.Machines)
+                {
+                    <li>@Html.DisplayFor(model => machine.Name)</li>
+                }
+            </ul>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Observation.Services)
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
+                @foreach(var service in Model.Observation.Services)
+                {
+                    <li>@Html.DisplayFor(model => service.Name) (@Html.DisplayFor(model => service.Location.Name))</li>
+                }
+            </ul>
+        </dd>
     </dl>
 </div>
 <div>
